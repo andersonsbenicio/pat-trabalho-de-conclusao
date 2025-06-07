@@ -1,11 +1,12 @@
 # CI N1 - Disparo manual a partir de um clique
 
-# Nome do nosso 'pipeline'
+# Nome do nosso 'Pipeline'
 name: "Execução Manual"
 
 # Regras de disparo (gatilhos/triggers)
 on:
   workflow_dispatch:
+
 # Trabalhos/tarefas dentro do pipeline
 jobs:
   unidade:
@@ -13,24 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     # Passos do script de build
     steps:
-      - uses: actions/checkout@v4
+      # 1. Faz o checkout do código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      # 2. Configura o ambiente Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: latest
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
+      # 3. Instala as dependências de forma otimizada para CI
+      - name: Instalar dependências
+        run: npm ci
 
-      - name: Instando Yarn
-        run: npm install -g yarn
-
-      - name: Instalando dependências
-        run: yarn
-
-      - name: Instando Mocha
-        run: npm install -D mocha
-
-      - name: Executando testes de unidade
-        run: npx mocha tests/trabalho-final.js
+      # 4. Executa os testes usando o script do package.json
+      - name: Executar testes de unidade
+        run: npm test
