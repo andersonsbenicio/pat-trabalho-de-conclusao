@@ -1,16 +1,17 @@
 # CI N1 - Disparo manual a partir de um clique
 
-# nome do nosso 'pipeline'
+# Nome do nosso 'pipeline'
 name: "Execução Manual"
 
-# regras de disparo (gatilhos/triggers)
+# Regras de disparo (gatilhos/triggers)
 on:
   workflow_dispatch:
-# trabalhos/tarefas dentro do pipeline = jobs
+# Trabalhos/tarefas dentro do pipeline
 jobs:
   unidade:
+    # Máquina que o job vai executar
     runs-on: ubuntu-latest
-
+    # Passos do script de build
     steps:
       - uses: actions/checkout@v4
 
@@ -33,9 +34,3 @@ jobs:
 
       - name: Executando testes de unidade
         run: npx mocha tests/trabalho-final.js
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: relatorio
-          path: ./playwright-report
