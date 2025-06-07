@@ -24,9 +24,9 @@ jobs:
         with:
           node-version: latest
 
-      # 3. Instala as dependências de forma otimizada para CI
+      # 3. Instala as dependências
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
 
       # 4. Executa os testes usando o script do package.json
       - name: Executar testes de unidade
